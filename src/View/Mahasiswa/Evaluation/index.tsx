@@ -3,14 +3,14 @@ import { useDataSelectMenu } from "@/src/Context/sidebarMenuStatusContexProvider
 import { Typography } from "@mui/material";
 import React, { useEffect } from "react";
 
-export default function DashboardView() {
+export default function EvaluationView() {
   const { setSelectMenu } = useDataSelectMenu();
   useEffect(() => {
-    setSelectMenu("/");
+    setSelectMenu("evaluation");
   }, []);
   return (
     <React.Fragment>
-      <Typography>DashboardView</Typography>
+      <Typography>Evaluation</Typography>
     </React.Fragment>
   );
 }

@@ -2,13 +2,9 @@ import React from "react";
 import Header from "./Header";
 import Aside from "./Aside";
 import { Grid } from "@mui/material";
-import SidebarMenuStatusContexProvider from "../Context/sideBarMenuStatusContexProvider";
+import SidebarMenuStatusContexProvider from "../Context/sidebarMenuStatusContexProvider";
 
-interface LayoutProps {
-  children: React.ReactNode;
-}
-
-export const MainLayout: React.FC<LayoutProps> = ({ children }) => {
+export const MainLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <SidebarMenuStatusContexProvider>
       <Header />

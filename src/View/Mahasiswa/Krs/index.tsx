@@ -3,14 +3,10 @@ import { useDataSelectMenu } from "@/src/Context/sidebarMenuStatusContexProvider
 import { Typography } from "@mui/material";
 import React, { useEffect } from "react";
 
-export default function DashboardView() {
+export default function KrsView() {
   const { setSelectMenu } = useDataSelectMenu();
   useEffect(() => {
-    setSelectMenu("/");
+    setSelectMenu("krs");
   }, []);
-  return (
-    <React.Fragment>
-      <Typography>DashboardView</Typography>
-    </React.Fragment>
-  );
+  return <Typography variant="h2">KRS</Typography>;
 }

@@ -1,6 +1,13 @@
+"use client";
 import React, { createContext, useContext, useState } from "react";
 
-export const DataSelectMenu = createContext(null);
+export const DataSelectMenu = createContext<{
+  selectMenu: string;
+  setSelectMenu: React.Dispatch<React.SetStateAction<string>>;
+}>({
+  selectMenu: "",
+  setSelectMenu: () => {},
+});
 export const useDataSelectMenu = () => useContext(DataSelectMenu);
 
 const SidebarMenuStatusContexProvider = ({

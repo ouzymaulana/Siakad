@@ -9,6 +9,7 @@ import { LuClipboardCheck } from "react-icons/lu";
 import { LuBookOpenCheck } from "react-icons/lu";
 import { grey } from "@mui/material/colors";
 import { useRouter } from "next/navigation";
+import { useDataSelectMenu } from "@/src/Context/sidebarMenuStatusContexProvider";
 
 const koulen = Koulen({
   subsets: ["latin"],
@@ -21,6 +22,7 @@ const domine = Domine({
 
 export default function Aside() {
   const route = useRouter();
+  const { selectMenu } = useDataSelectMenu();
 
   return (
     <Drawer
@@ -63,10 +65,20 @@ export default function Aside() {
             cursor: "pointer",
             "&:hover": {
               background:
+                "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(245,228,255,1) 100%)",
+            },
+            ...(selectMenu === "/" && {
+              background:
                 "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(222,169,255,1) 100%)",
               borderRight: 4,
               borderRightColor: "#B132FF",
-            },
+              ":hover": {
+                background:
+                  "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(222,169,255,1) 100%)",
+                borderRight: 4,
+                borderRightColor: "#B132FF",
+              },
+            }),
           }}
         >
           <span>
@@ -82,7 +94,9 @@ export default function Aside() {
           </Typography>
         </ListItem>
         <ListItem
-          onClick={() => route.push("/precense")}
+          onClick={() => {
+            route.push("/precense");
+          }}
           sx={{
             fontWeight: 600,
             display: "flex",
@@ -92,10 +106,20 @@ export default function Aside() {
             cursor: "pointer",
             "&:hover": {
               background:
+                "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(245,228,255,1) 100%)",
+            },
+            ...(selectMenu === "precense" && {
+              background:
                 "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(222,169,255,1) 100%)",
               borderRight: 4,
               borderRightColor: "#B132FF",
-            },
+              ":hover": {
+                background:
+                  "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(222,169,255,1) 100%)",
+                borderRight: 4,
+                borderRightColor: "#B132FF",
+              },
+            }),
           }}
         >
           <span>
@@ -121,10 +145,20 @@ export default function Aside() {
             cursor: "pointer",
             "&:hover": {
               background:
+                "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(245,228,255,1) 100%)",
+            },
+            ...(selectMenu === "krs" && {
+              background:
                 "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(222,169,255,1) 100%)",
               borderRight: 4,
               borderRightColor: "#B132FF",
-            },
+              ":hover": {
+                background:
+                  "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(222,169,255,1) 100%)",
+                borderRight: 4,
+                borderRightColor: "#B132FF",
+              },
+            }),
           }}
         >
           <span>
@@ -150,10 +184,20 @@ export default function Aside() {
             cursor: "pointer",
             "&:hover": {
               background:
+                "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(245,228,255,1) 100%)",
+            },
+            ...(selectMenu === "evaluation" && {
+              background:
                 "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(222,169,255,1) 100%)",
               borderRight: 4,
               borderRightColor: "#B132FF",
-            },
+              ":hover": {
+                background:
+                  "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(222,169,255,1) 100%)",
+                borderRight: 4,
+                borderRightColor: "#B132FF",
+              },
+            }),
           }}
         >
           <span>
