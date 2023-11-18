@@ -10,6 +10,10 @@ import { LuBookOpenCheck } from "react-icons/lu";
 import { MdNotificationsNone } from "react-icons/md";
 import { grey } from "@mui/material/colors";
 import ListItemMenu from "../../Components/Menu/ListItemMenu";
+import NestedList from "@/src/Components/Menu/NestedList";
+import { LuUsers2 } from "react-icons/lu";
+import { PiStudent } from "react-icons/pi";
+import { FaChalkboardTeacher } from "react-icons/fa";
 
 const koulen = Koulen({
   subsets: ["latin"],
@@ -47,22 +51,46 @@ export default function Aside() {
         </Typography>
       </Toolbar>
       <List sx={{ marginTop: 1 }}>
-        <ListItemMenu url="/" Icon={RxDashboard} title="Dashboard" />
         <ListItemMenu
-          url="/precense"
+          url="/admin"
+          Icon={RxDashboard}
+          title="Dashboard"
+          status={"admin"}
+        />
+        <NestedList
+          url="/admin/user-management/students"
+          url2="/admin/user-management/lecturers"
+          Icon={LuUsers2}
+          Icon2={PiStudent}
+          Icon3={FaChalkboardTeacher}
+          title="User Management"
+        />
+        <NestedList
+          url="/admin/precense/students"
+          url2="/admin/precense/lecturers"
           Icon={PiAddressBookBold}
-          title="Precense"
+          Icon2={PiStudent}
+          Icon3={FaChalkboardTeacher}
+          title="Precense Data"
         />
-        <ListItemMenu url="/krs" Icon={LuClipboardCheck} title="KRS" />
+
         <ListItemMenu
-          url="/evaluation"
+          url="/admin/krs"
+          Icon={LuClipboardCheck}
+          title="KRS Management"
+          status={"admin/krs"}
+        />
+        <ListItemMenu
+          url="/admin/evaluation-data"
           Icon={LuBookOpenCheck}
-          title="Evaluation"
+          title="Evaluation Data"
+          status={"admin/evaluation"}
         />
         <ListItemMenu
-          url="/mahasiswa/news"
+          url="/admin/news-management"
           Icon={MdNotificationsNone}
-          title="News"
+          title="News Management"
+          status={"admin/news"}
         />
       </List>
     </Drawer>
