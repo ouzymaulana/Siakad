@@ -10,9 +10,9 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
       <Header />
       <Aside />
       <Grid
-        marginLeft={"320px"}
-        marginTop={"100px"}
-        height={"calc(100vh - 100px)"}
+        marginLeft={"229px"}
+        marginTop={"60px"}
+        height={"calc(100vh - 60px)"}
         padding={"20px"}
         sx={{ backgroundColor: "#FCF8FF" }}
       >

@@ -34,7 +34,7 @@ export default function ListItemMenu({
         fontWeight: 600,
         display: "flex",
         paddingX: 3,
-        paddingY: 2,
+        paddingY: 1,
         gap: 3,
         cursor: "pointer",
         "&:hover": {
@@ -56,14 +56,14 @@ export default function ListItemMenu({
       }}
     >
       <span>
-        <Icon size={30} />
+        <Icon size={15} />
       </span>
       <Typography
         className={domine.className}
         variant="h6"
         textAlign={"center"}
         fontWeight={600}
-        fontSize={"1em"}
+        fontSize={"0.7em"}
       >
         {title}
       </Typography>

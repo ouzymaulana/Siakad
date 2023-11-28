@@ -6,7 +6,7 @@ import React, { useEffect } from "react";
 export default function LecturersManagementView() {
   const { setSelectMenu } = useDataSelectMenu();
   useEffect(() => {
-    setSelectMenu("/admin/user-management");
+    setSelectMenu("/admin/user-management/lecturers");
   }, []);
   return (
     <>

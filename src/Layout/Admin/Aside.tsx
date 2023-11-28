@@ -28,10 +28,10 @@ export default function Aside() {
         position: "relative",
         border: "0",
         flexShrink: 0,
-        "& .MuiDrawer-paper": {
-          width: "320px",
-          boxSizing: "border-box",
-        },
+        // "& .MuiDrawer-paper": {
+        // width: "320px",
+        boxSizing: "border-box",
+        // },
       }}
       variant="permanent"
       anchor="left"
@@ -40,13 +40,13 @@ export default function Aside() {
         sx={{
           borderBottom: 2,
           borderColor: grey[400],
-          height: { lg: "80px", sm: "60px", xs: "10px" },
+          height: { lg: "60px", sm: "60px", xs: "10px" },
           display: "flex",
           gap: 2,
         }}
       >
-        <Image src="/img/logo.svg" height={80} width={80} alt="logo" />
-        <Typography variant="h4" className={koulen.className}>
+        <Image src="/img/logo.svg" height={50} width={50} alt="logo" />
+        <Typography variant="h5" className={koulen.className}>
           CAMPUS EDGE
         </Typography>
       </Toolbar>
@@ -64,6 +64,8 @@ export default function Aside() {
           Icon2={PiStudent}
           Icon3={FaChalkboardTeacher}
           title="User Management"
+          statusRoute="/admin/user-management/students"
+          statusRoute2="/admin/user-management/lecturers"
         />
         <NestedList
           url="/admin/precense/students"
@@ -72,6 +74,8 @@ export default function Aside() {
           Icon2={PiStudent}
           Icon3={FaChalkboardTeacher}
           title="Precense Data"
+          statusRoute="/admin/precense/students"
+          statusRoute2="/admin/precense/lecturers"
         />
 
         <ListItemMenu

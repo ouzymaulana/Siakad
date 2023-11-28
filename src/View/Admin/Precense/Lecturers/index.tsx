@@ -6,11 +6,11 @@ import React, { useEffect } from "react";
 export default function AdminLecturersPrecenseView() {
   const { setSelectMenu } = useDataSelectMenu();
   useEffect(() => {
-    setSelectMenu("admin/precense");
+    setSelectMenu("admin/precense/lecturer");
   }, []);
   return (
     <>
-      <Typography>admin precense</Typography>
+      <Typography>admin precense lecturer</Typography>
     </>
   );
 }

@@ -14,8 +14,8 @@ export default function Header() {
       position="fixed"
       sx={{
         padding: "20px",
-        width: "calc(100% - 320px)",
-        height: "100px",
+        width: "calc(100% - 229px)",
+        height: "60px",
         display: "flex",
         alignItems: "center",
         flexDirection: "row",
@@ -26,16 +26,16 @@ export default function Header() {
       }}
     >
       <Grid color={"black"}>
-        <Typography variant="h5" className={domine.className}>
+        <Typography variant="subtitle1" className={domine.className}>
           Hi Ouzy!, Welcome Back!
         </Typography>
       </Grid>
       <Grid>
-        <Box height={60} width={60} borderRadius={4} overflow={"hidden"}>
+        <Box height={40} width={38} borderRadius={3} overflow={"hidden"}>
           <Image
             src={"/img/profile.jpg"}
-            height={60}
-            width={60}
+            height={40}
+            width={38}
             alt="profile"
           />
         </Box>
