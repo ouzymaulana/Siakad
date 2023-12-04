@@ -60,7 +60,6 @@ export default function ListItemMenu({
       </span>
       <Typography
         className={domine.className}
-        variant="h6"
         textAlign={"center"}
         fontWeight={600}
         fontSize={"0.7em"}

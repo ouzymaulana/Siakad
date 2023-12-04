@@ -8,6 +8,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { Domine } from "next/font/google";
 import PaginationOutlined from "./Pagination";
+// import { Column } from "@/src/View/Admin/UserManagement/Lecturers";
 
 const domine = Domine({
   subsets: ["latin"],
@@ -22,49 +23,26 @@ interface Column {
   format?: (value: number) => string;
 }
 
-const columns: readonly Column[] = [
-  { label: "Nim", field: "nim", minWidth: 170 },
-  { label: "Name", field: "name", minWidth: 170 },
-  { label: "Email", field: "email", minWidth: 170 },
-  { label: "Date Of Birth", field: "date_of_birth", minWidth: 170 },
-  { label: "Entry Year", field: "entry_year", minWidth: 100 },
-  { label: "Semester", field: "semester", minWidth: 80 },
-  { label: "Major", field: "major", minWidth: 100 },
-  { label: "Status", field: "status", minWidth: 80 },
-];
-
-interface StickyHeadTableProps {
-  dataUsers: UserData[];
+interface StickyHeadTableProps<T> {
+  dataUsers: T[];
+  columns: Column[];
 }
 
-interface UserData {
-  id: number;
-  nim: number;
-  email: string;
-  name: string;
-  entry_year: number;
-  date_of_birth: string;
-  major: string;
-  semester: number;
-  status: string;
-  [key: string]: string | number;
-}
-
-export default function StickyHeadTable({ dataUsers }: StickyHeadTableProps) {
+export default function StickyHeadTable<T>({
+  dataUsers,
+  columns,
+}: StickyHeadTableProps<T>) {
   // const [page, setPage] = React.useState(0);
-  const [dataRows, setDataRows] = React.useState<UserData[]>([]);
+  const [dataRows, setDataRows] = React.useState<T[]>([]);
   // const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
-  // const handleChangeRowsPerPage = (
-  //   event: React.ChangeEvent<HTMLInputElement>
-  // ) => {
-  //   setRowsPerPage(+event.target.value);
-  //   setPage(0);
-  // };
 
   React.useEffect(() => {
     setDataRows(dataUsers);
   }, [dataUsers]);
+
+  console.log("==================data=row=================");
+  console.log(dataRows);
+  console.log("====================================");
 
   return (
     <Paper
@@ -96,6 +74,7 @@ export default function StickyHeadTable({ dataUsers }: StickyHeadTableProps) {
             {dataRows.map((row) => {
               return (
                 <TableRow hover key={row.id}>
+                  {/* <TableRow hover key={i}> */}
                   {columns.map((column, i) => {
                     return (
                       <TableCell
@@ -115,22 +94,6 @@ export default function StickyHeadTable({ dataUsers }: StickyHeadTableProps) {
         </Table>
       </TableContainer>
       <PaginationOutlined />
-      {/* <Box
-        sx={{
-          float: "right",
-          padding: "10px",
-        }}
-      >
-        <Stack>
-          <Pagination
-            count={10}
-            page={3}
-            variant="outlined"
-            color="secondary"
-            onChange={handleChangePage}
-          />
-        </Stack>
-      </Box> */}
     </Paper>
   );
 }

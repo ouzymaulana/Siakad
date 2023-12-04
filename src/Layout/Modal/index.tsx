@@ -10,9 +10,11 @@ const style = {
 };
 
 export default function FormModal({
+  title,
   children,
   open,
 }: {
+  title: string;
   children: React.ReactNode;
   open: boolean;
 }) {
@@ -36,7 +38,7 @@ export default function FormModal({
             component="h5"
             paddingBottom={3}
           >
-            Create New Data User
+            {title}
           </Typography>
         </Box>
         {children}

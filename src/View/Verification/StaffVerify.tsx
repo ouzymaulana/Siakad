@@ -42,7 +42,7 @@ const CssTextField = styled(TextField)({
   },
 });
 
-export default function VerificationView() {
+export default function StaffVerificationView() {
   const [alertMessageForm, setAlertMessageForm] = useState({
     status: false,
     message: null as null | string,
@@ -52,12 +52,15 @@ export default function VerificationView() {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post("http://localhost:5000/api/verify", {
-        nim: formik.values.nim,
-        password: formik.values.password,
-        confirmPassword: formik.values.confirmPassword,
-        verification_code: formik.values.verification_code,
-      });
+      const response = await axios.post(
+        "http://localhost:5000/api/staff/verify",
+        {
+          nrp: formik.values.nrp,
+          password: formik.values.password,
+          confirmPassword: formik.values.confirmPassword,
+          verification_code: formik.values.verification_code,
+        }
+      );
 
       if (response.data.status === "fail") {
         setAlertMessageForm({
@@ -67,8 +70,8 @@ export default function VerificationView() {
       }
 
       if (response.data.status === "success") {
+        router.push("/staff/login");
         sweetAlert("success", "Verification is successful, you can login now");
-        router.push("/login");
       }
     } catch (error) {
       console.error(error);
@@ -78,14 +81,14 @@ export default function VerificationView() {
   const formik = useFormik({
     initialValues: {
       verification_code: "",
-      nim: "",
+      nrp: "",
       password: "",
       confirmPassword: "",
     },
 
     validationSchema: Yup.object({
       verification_code: Yup.string().required(),
-      nim: Yup.number().typeError("NIM must be a number").required(),
+      nrp: Yup.number().typeError("NRP must be a number").required(),
       password: Yup.string()
         .min(8, "Password must be at least 8 characters")
         .required(),
@@ -132,23 +135,23 @@ export default function VerificationView() {
         </Box>
         <Box display={"flex"} flexDirection={"column"}>
           <Typography className={domine.className} variant="body2">
-            Nim
+            Nrp
           </Typography>
           <CssTextField
             size="small"
             fullWidth
-            name={"nim"}
-            placeholder="Your Nim"
+            name={"nrp"}
+            placeholder="Your NRP"
             autoComplete="off"
-            value={formik.values.nim}
+            value={formik.values.nrp}
             onChange={formik.handleChange}
           />
-          {formik.touched.nim && formik.errors.nim && (
+          {formik.touched.nrp && formik.errors.nrp && (
             <Typography
               variant="body2"
               style={{ color: "red", fontFamily: "Inter" }}
             >
-              {formik.errors.nim}
+              {formik.errors.nrp}
             </Typography>
           )}
         </Box>

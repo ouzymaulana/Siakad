@@ -16,8 +16,6 @@ import * as Yup from "yup";
 import axios from "axios";
 import { useAlertForm } from "@/src/Context/Alert/FormAlertContextProvider";
 import { useRouter } from "next/navigation";
-import jwt from "jsonwebtoken";
-import Cookies from "js-cookie";
 
 const domine = Domine({
   subsets: ["latin"],
@@ -45,17 +43,20 @@ const CssTextField = styled(TextField)({
   },
 });
 
-export default function LoginView() {
+export default function StaffLoginView() {
   // const [alertMessage, setAlertMessage] = useState("");
   const { alertForm, setAlertForm } = useAlertForm();
   const route = useRouter();
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post("http://localhost:5000/api/login", {
-        nim: formik.values.nim,
-        password: formik.values.password,
-      });
+      const response = await axios.post(
+        "http://localhost:5000/api/login/staff",
+        {
+          nrp: formik.values.nrp,
+          password: formik.values.password,
+        }
+      );
 
       if (response.data.status === "fail") {
         setAlertForm({
@@ -65,11 +66,7 @@ export default function LoginView() {
         });
       }
 
-      const result = response.data;
-
       if (response.data.status === "success") {
-        Cookies.set("token", result.data.token, { expires: 1 / 24 });
-
         route.push("/");
       }
     } catch (error) {
@@ -79,12 +76,12 @@ export default function LoginView() {
 
   const formik = useFormik({
     initialValues: {
-      nim: "",
+      nrp: "",
       password: "",
     },
 
     validationSchema: Yup.object({
-      nim: Yup.number().typeError("NIM must be a number").required(),
+      nrp: Yup.number().typeError("NRP must be a number").required(),
       password: Yup.string().required(),
     }),
 
@@ -104,27 +101,25 @@ export default function LoginView() {
       >
         <Box display={"flex"} flexDirection={"column"}>
           <Typography className={domine.className} variant="subtitle2">
-            Nim
+            Nrp
           </Typography>
           <CssTextField
             fullWidth
             size="small"
-            name={"nim"}
-            placeholder="Your Nim"
+            name={"nrp"}
+            placeholder="Your Nrp"
             autoComplete="off"
-            value={formik.values.nim}
+            value={formik.values.nrp}
             onChange={formik.handleChange}
           />
-          {formik.touched.nim && formik.errors.nim && (
+          {formik.touched.nrp && formik.errors.nrp && (
             <span style={{ color: "red", fontFamily: "Inter" }}>
-              {formik.errors.nim}
+              {formik.errors.nrp}
             </span>
           )}
         </Box>
         <Box display={"flex"} flexDirection={"column"}>
-          <Typography className={domine.className} variant="subtitle2">
-            Password
-          </Typography>
+          <Typography className={domine.className}>Password</Typography>
           <CssTextField
             fullWidth
             size="small"
@@ -143,10 +138,10 @@ export default function LoginView() {
         <Button
           disableElevation
           type="submit"
-          size="small"
+          size="medium"
           variant="contained"
           sx={{
-            fontSize: "0.6em",
+            fontSize: "0.7em",
             color: "black",
             padding: "10px",
             borderRadius: "10px",
@@ -164,7 +159,7 @@ export default function LoginView() {
         <Box display={"flex"} justifyContent={"center"}>
           <Typography className={domine.className} variant="caption">
             Want to verify your account ?{" "}
-            <Link href={"/verification"} style={{ color: "#9852C3" }}>
+            <Link href={"/staff/verification"} style={{ color: "#9852C3" }}>
               Verify
             </Link>
           </Typography>

@@ -3,6 +3,9 @@ import Stack from "@mui/material/Stack";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { useAlertMessage } from "@/src/Context/Alert/AlertContextProvider";
+import copy from "copy-to-clipboard";
+import { Box, IconButton, Tooltip, Typography } from "@mui/material";
+import ContentCopyRoundedIcon from "@mui/icons-material/ContentCopyRounded";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
   function Alert(props, ref) {
@@ -10,7 +13,13 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
   }
 );
 
-export default function SnackbarsAlert() {
+interface SnackbarsAlertProps {
+  verification_code: string;
+}
+
+export default function SnackbarsAlert({
+  verification_code,
+}: SnackbarsAlertProps) {
   const { alertMessage, setAlertMessage } = useAlertMessage();
 
   const handleClose = (
@@ -28,6 +37,10 @@ export default function SnackbarsAlert() {
     });
   };
 
+  const handleCopyVerificationCode = () => {
+    copy(verification_code);
+  };
+
   return (
     <Stack spacing={2} sx={{ width: "100%" }}>
       <Snackbar
@@ -37,7 +50,25 @@ export default function SnackbarsAlert() {
         onClose={handleClose}
       >
         <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
-          {alertMessage.message}
+          <Box>{alertMessage.message}</Box>
+          {verification_code && (
+            <Box
+              display={"flex"}
+              alignItems={"center"}
+              justifyContent={"space-between"}
+              gap={1}
+            >
+              <Typography variant="caption">{verification_code}</Typography>
+              <Tooltip title={"copy"}>
+                <IconButton onClick={() => handleCopyVerificationCode()}>
+                  <ContentCopyRoundedIcon
+                    fontSize="small"
+                    sx={{ color: "white" }}
+                  />
+                </IconButton>
+              </Tooltip>
+            </Box>
+          )}
         </Alert>
       </Snackbar>
     </Stack>

@@ -63,6 +63,7 @@ export default function InputForm({
       {dateType === true ? (
         <CssTextField
           type="date"
+          size="small"
           name={title}
           autoComplete="off"
           onChange={onchange}

@@ -4,7 +4,6 @@ import Image from "next/image";
 import React from "react";
 import { Koulen } from "next/font/google";
 import { RxDashboard } from "react-icons/rx";
-import { PiAddressBookBold } from "react-icons/pi";
 import { LuClipboardCheck } from "react-icons/lu";
 import { LuBookOpenCheck } from "react-icons/lu";
 import { MdNotificationsNone } from "react-icons/md";
@@ -66,16 +65,6 @@ export default function Aside() {
           title="User Management"
           statusRoute="/admin/user-management/students"
           statusRoute2="/admin/user-management/lecturers"
-        />
-        <NestedList
-          url="/admin/precense/students"
-          url2="/admin/precense/lecturers"
-          Icon={PiAddressBookBold}
-          Icon2={PiStudent}
-          Icon3={FaChalkboardTeacher}
-          title="Precense Data"
-          statusRoute="/admin/precense/students"
-          statusRoute2="/admin/precense/lecturers"
         />
 
         <ListItemMenu

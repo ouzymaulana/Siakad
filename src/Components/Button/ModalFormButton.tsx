@@ -50,7 +50,7 @@ export default function ModalFormButton({
           borderRadius: "10px",
           fontSize: { lg: "0.8em", xs: "10px" },
           ":hover": {
-            bgcolor: "#FAA41A",
+            bgcolor: purple[200],
           },
         }}
       >

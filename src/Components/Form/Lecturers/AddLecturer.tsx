@@ -2,8 +2,8 @@ import { Box, Grid } from "@mui/material";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import React from "react";
-import InputForm from "../InputForm";
-import ModalFormButton from "../Button/ModalFormButton";
+import InputForm from "../../InputForm";
+import ModalFormButton from "../../Button/ModalFormButton";
 import axios from "axios";
 import FormModal from "@/src/Layout/Modal";
 import { useAlertMessage } from "@/src/Context/Alert/AlertContextProvider";
@@ -11,32 +11,33 @@ import { useAlertMessage } from "@/src/Context/Alert/AlertContextProvider";
 interface AddDataStudentsProps {
   open: boolean;
   handleClose: () => void;
+  setVerificationCode: (code: string) => void;
 }
 
-export default function AddDataStudents({
+export default function AddLecturer({
   open,
   handleClose,
+  setVerificationCode,
 }: AddDataStudentsProps) {
   const { alertMessage, setAlertMessage } = useAlertMessage();
 
   const handleSubmit = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/addStudent",
+        "http://localhost:5000/api/addLecturer",
         {
-          nim: formik.values.nim,
+          nrp: formik.values.nrp,
           name: formik.values.name,
           email: formik.values.email,
-          entry_year: formik.values.entry_year,
           date_of_birth: formik.values.date_of_birth,
           address: formik.values.address,
-          semester: formik.values.semester,
-          major: formik.values.major,
           status: formik.values.status,
+          role: formik.values.role,
         }
       );
 
       if (response.data.status === "success") {
+        setVerificationCode(response.data.data.verificationCode);
         handleClose();
         setAlertMessage({
           ...alertMessage,
@@ -52,27 +53,23 @@ export default function AddDataStudents({
   const formik = useFormik({
     // setting initial values
     initialValues: {
-      nim: "",
+      nrp: "",
       name: "",
       email: "",
-      entry_year: "",
       date_of_birth: "",
       address: "",
-      semester: "",
-      major: "",
       status: "",
+      role: "",
     },
 
     validationSchema: Yup.object({
-      nim: Yup.number().required(),
+      nrp: Yup.number().required(),
       name: Yup.string().required(),
       email: Yup.string().email().required(),
-      entry_year: Yup.number().min(1000).max(9999).required(),
       date_of_birth: Yup.date().required(),
       address: Yup.string().required(),
-      semester: Yup.number().integer().min(1).max(9).required(),
-      major: Yup.string().required(),
       status: Yup.string().required(),
+      role: Yup.string().required(),
     }),
 
     onSubmit: handleSubmit,
@@ -83,16 +80,16 @@ export default function AddDataStudents({
   };
 
   return (
-    <FormModal open={open}>
+    <FormModal open={open} title="Create New Lecturer">
       <form onSubmit={formik.handleSubmit}>
         <Grid display={"flex"} flexDirection={"column"} gap={3}>
           <InputForm
-            title={"nim"}
-            label={"Student Nim"}
-            value={formik.values.nim}
+            title={"nrp"}
+            label={"Student NRP"}
+            value={formik.values.nrp}
             onchange={formik.handleChange}
-            dataError={formik.errors.nim || ""}
-            touched={formik.touched.nim || false}
+            dataError={formik.errors.nrp || ""}
+            touched={formik.touched.nrp || false}
           />
           <InputForm
             title={"name"}
@@ -126,53 +123,34 @@ export default function AddDataStudents({
             </Box>
           </Grid>
           <Grid display={"flex"} justifyContent={"space-between"} gap={2}>
-            <Box width={"100%"}>
-              <InputForm
-                title={"entry_year"}
-                label={"Entry Year"}
-                value={formik.values.entry_year}
-                onchange={formik.handleChange}
-                dataError={formik.errors.entry_year || ""}
-                touched={formik.touched.entry_year || false}
-              />
-            </Box>
+            {/* sendiri */}
             <Box width={"100%"}>
               <InputForm
                 title={"status"}
                 label={"Status"}
                 select={true}
-                dataSelect={["active", "not active", "graduated"]}
+                dataSelect={[
+                  "asisten ahli",
+                  "lektor",
+                  "lektor kepala",
+                  "profesor",
+                ]}
                 value={formik.values.status}
                 onchange={formik.handleChange}
                 dataError={formik.errors.status || ""}
                 touched={formik.touched.status || false}
               />
             </Box>
-          </Grid>
-          <Grid display={"flex"} justifyContent={"space-between"} gap={2}>
             <Box width={"100%"}>
               <InputForm
-                title={"semester"}
-                label={"Semester"}
-                value={formik.values.semester}
-                onchange={formik.handleChange}
-                dataError={formik.errors.semester || ""}
-                touched={formik.touched.semester || false}
-              />
-            </Box>
-            <Box width={"100%"}>
-              <InputForm
-                title={"major"}
-                label={"Major"}
+                title={"role"}
+                label={"role"}
                 select={true}
-                dataSelect={[
-                  "information technology",
-                  "informatics engineering",
-                ]}
-                value={formik.values.major}
+                dataSelect={["admin", "lecturer"]}
+                value={formik.values.role}
                 onchange={formik.handleChange}
-                dataError={formik.errors.major || ""}
-                touched={formik.touched.major || false}
+                dataError={formik.errors.status || ""}
+                touched={formik.touched.status || false}
               />
             </Box>
           </Grid>
