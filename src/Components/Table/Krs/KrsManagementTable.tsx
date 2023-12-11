@@ -7,8 +7,8 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { Domine } from "next/font/google";
-import PaginationOutlined from "./Pagination";
-import StudentAndLecturerTable from "./ActionTable/StudentAndLecturerTable";
+import PaginationOutlined from "./../Pagination";
+import KrsActionTable from "../ActionTable/KrsActionTable";
 
 const domine = Domine({
   subsets: ["latin"],
@@ -24,56 +24,41 @@ interface Column {
 }
 
 const columns: readonly Column[] = [
-  { label: "Nim", field: "nim", minWidth: 100 },
-  { label: "Name", field: "name", minWidth: 170 },
-  { label: "Email", field: "email", minWidth: 170 },
-  { label: "Date Of Birth", field: "date_of_birth", minWidth: 170 },
-  { label: "Entry Year", field: "entry_year", minWidth: 100 },
-  { label: "Semester", field: "semester", minWidth: 80 },
-  { label: "Major", field: "major", minWidth: 100 },
-  { label: "Status", field: "status", minWidth: 80 },
+  { label: "Course", field: "course", minWidth: 100 },
+  { label: "Lecturer", field: "lecturer", minWidth: 170 },
+  { label: "Major", field: "prodi", minWidth: 170 },
+  { label: "Semester", field: "semester", minWidth: 170 },
+  { label: "Kuota", field: "kuota", minWidth: 100 },
   { label: "Action", field: "action", minWidth: 50 },
 ];
 
 interface StickyHeadTableProps {
-  dataUsers: UserData[];
+  dataKrs: KrsData[];
 }
 
-interface UserData {
+interface KrsData {
   id: string;
-  nim: string;
-  email: string;
-  name: string;
-  entry_year: string;
-  date_of_birth: string;
-  major: string;
+  course: string;
+  lecturer: string;
+  prodi: string;
   semester: string;
-  status: string;
+  kuota: string;
   [key: string]: string | number;
 }
 
-export default function StickyHeadTable({ dataUsers }: StickyHeadTableProps) {
-  // const [page, setPage] = React.useState(0);
-  const [dataRows, setDataRows] = React.useState<UserData[]>([]);
-  // const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
-  // const handleChangeRowsPerPage = (
-  //   event: React.ChangeEvent<HTMLInputElement>
-  // ) => {
-  //   setRowsPerPage(+event.target.value);
-  //   setPage(0);
-  // };
+export default function KrsManagementTable({ dataKrs }: StickyHeadTableProps) {
+  const [dataRows, setDataRows] = React.useState<KrsData[]>([]);
 
   React.useEffect(() => {
-    setDataRows(dataUsers);
-  }, [dataUsers]);
+    setDataRows(dataKrs);
+  }, [dataKrs]);
 
   return (
     <Paper
       sx={{
         width: "100%",
         overflow: "hidden",
-        height: "100%",
+        maxHeight: "100%",
         position: "relative",
       }}
       elevation={0}
@@ -95,7 +80,7 @@ export default function StickyHeadTable({ dataUsers }: StickyHeadTableProps) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {dataRows.map((user, i) => {
+            {dataRows.map((krs, i) => {
               return (
                 <TableRow hover key={i}>
                   {columns.map((column, i) => {
@@ -106,11 +91,9 @@ export default function StickyHeadTable({ dataUsers }: StickyHeadTableProps) {
                         sx={{ fontSize: "0.8em" }}
                         className={domine.className}
                       >
-                        {user[column.field]}
+                        {krs[column.field]}
                         {column.field === "action" && (
-                          <StudentAndLecturerTable
-                            dataStudentOrLecturer={user}
-                          />
+                          <KrsActionTable dataKrs={krs} />
                         )}
                       </TableCell>
                     );

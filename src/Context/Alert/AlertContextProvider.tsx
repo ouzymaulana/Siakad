@@ -11,7 +11,6 @@ interface AlertMessageContextProps {
 export const AlertMessage = createContext<AlertMessageContextProps | undefined>(
   undefined
 );
-// export const useAlertMessage = () => useContext(AlertMessage);
 export const useAlertMessage = () => {
   const context = useContext(AlertMessage);
   if (!context) {
@@ -40,9 +39,3 @@ const AlertMessageContextProvider = ({
 };
 
 export default AlertMessageContextProvider;
-
-// useEffect(() => {
-//   if (alertMessage.isAlertToken !== false) {
-//     setAlertMessage({ ...alertMessage });
-//   }
-// }, []);

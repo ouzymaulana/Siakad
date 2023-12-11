@@ -1,16 +1,12 @@
-import { AdminLayout } from "@/src/Layout/Admin";
+import { MainLayout } from "@/src/Layout";
 import StudentManagementView from "@/src/View/Admin/UserManagement/Students";
 import React from "react";
 
-// interface StudentsManagementProps {
-//   getDataStudents: object;
-// }
-
 export default function StudentsManagement() {
   return (
-    <AdminLayout>
+    <MainLayout>
       <StudentManagementView />
-    </AdminLayout>
+    </MainLayout>
   );
 }
 // export async function getServerSideProps() {

@@ -23,9 +23,7 @@ export default function ModalFormButton({
         }}
         variant="contained"
         sx={{
-          // padding: "10px",
           backgroundColor: "#212A3E",
-          // width: "70%",
           color: "white",
           borderRadius: "10px",
           fontSize: { lg: "0.8em", xs: "10px" },
@@ -43,8 +41,6 @@ export default function ModalFormButton({
         variant="contained"
         size="medium"
         sx={{
-          // padding: "10px",
-          // width: "100%",
           backgroundColor: purple[100],
           color: "black",
           borderRadius: "10px",

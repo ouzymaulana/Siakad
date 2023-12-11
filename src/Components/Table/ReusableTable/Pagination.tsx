@@ -11,13 +11,6 @@ export default function PaginationOutlined() {
     setPage(value);
   };
 
-  React.useEffect(() => {
-    // handleSetPage();
-    console.log("====================================");
-    console.log(page);
-    console.log("====================================");
-  }, [page]);
-
   return (
     <Box
       sx={{

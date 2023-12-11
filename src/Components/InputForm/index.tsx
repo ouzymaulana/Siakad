@@ -51,13 +51,6 @@ export default function InputForm({
   dateType,
   isImageFailed,
 }: propsInputForm) {
-  // const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const files = event.target.files;
-
-  //   if (files && files.length > 0 && handleChangeFile) {
-  //     handleChangeFile(files[0]);
-  //   }
-  // };
   return (
     <Box display={"flex"} flexDirection={"column"}>
       {dateType === true ? (
@@ -90,7 +83,7 @@ export default function InputForm({
         >
           {dataSelect &&
             dataSelect.map((item, i) => (
-              <MenuItem key={i} value={item}>
+              <MenuItem key={i} value={item} selected={item === value}>
                 {item}
               </MenuItem>
             ))}

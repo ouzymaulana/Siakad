@@ -7,6 +7,8 @@ import ModalFormButton from "../../Button/ModalFormButton";
 import axios from "axios";
 import FormModal from "@/src/Layout/Modal";
 import { useAlertMessage } from "@/src/Context/Alert/AlertContextProvider";
+import { useDispatch } from "react-redux";
+import { addDataStudent } from "@/src/Redux/Admin/StudentsDataSlice";
 
 interface AddDataStudentsProps {
   open: boolean;
@@ -20,26 +22,30 @@ export default function AddDataStudents({
   setVerificationCode,
 }: AddDataStudentsProps) {
   const { alertMessage, setAlertMessage } = useAlertMessage();
+  const dispatch = useDispatch();
 
   const handleSubmit = async () => {
     try {
+      const getFormValue = {
+        nim: formik.values.nim,
+        name: formik.values.name,
+        email: formik.values.email,
+        entry_year: formik.values.entry_year,
+        date_of_birth: formik.values.date_of_birth,
+        address: formik.values.address,
+        semester: formik.values.semester,
+        major: formik.values.major,
+        status: formik.values.status,
+      };
+
       const response = await axios.post(
         "http://localhost:5000/api/addStudent",
-        {
-          nim: formik.values.nim,
-          name: formik.values.name,
-          email: formik.values.email,
-          entry_year: formik.values.entry_year,
-          date_of_birth: formik.values.date_of_birth,
-          address: formik.values.address,
-          semester: formik.values.semester,
-          major: formik.values.major,
-          status: formik.values.status,
-        }
+        getFormValue
       );
 
       if (response.data.status === "success") {
         setVerificationCode(response.data.data.verificationCode);
+        dispatch(addDataStudent(getFormValue));
         handleClose();
         setAlertMessage({
           ...alertMessage,

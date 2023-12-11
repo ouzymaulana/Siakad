@@ -7,12 +7,12 @@ import {
   ListItemIcon,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import { Domine } from "next/font/google";
 import { IconType } from "react-icons";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 const domine = Domine({
   subsets: ["latin"],
@@ -43,11 +43,17 @@ export default function NestedList({
   const [open, setOpen] = useState(false);
   const { selectMenu } = useDataSelectMenu();
   const route = useRouter();
-  // const pathname = usePathname();
+  const pathname = usePathname();
 
   const handleClick = () => {
     setOpen(!open);
   };
+
+  useEffect(() => {
+    if (pathname == url || url2) {
+      setOpen(true);
+    }
+  }, []);
   return (
     <>
       <ListItem

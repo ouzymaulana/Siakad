@@ -13,6 +13,7 @@ export default function Header() {
     <AppBar
       position="fixed"
       sx={{
+        zIndex: 2,
         padding: "20px",
         width: "calc(100% - 229px)",
         height: "60px",

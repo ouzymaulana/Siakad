@@ -8,6 +8,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { Domine } from "next/font/google";
 import PaginationOutlined from "./Pagination";
+import StudentAndLecturerTable from "../ActionTable/StudentAndLecturerTable";
 // import { Column } from "@/src/View/Admin/UserManagement/Lecturers";
 
 const domine = Domine({
@@ -23,26 +24,19 @@ interface Column {
   format?: (value: number) => string;
 }
 
-interface StickyHeadTableProps<T> {
-  dataUsers: T[];
+interface StickyHeadTableProps {
+  dataUsers: Array<any>; //using any
   columns: Column[];
 }
 
-export default function StickyHeadTable<T>({
+export default function StickyHeadTable({
   dataUsers,
   columns,
-}: StickyHeadTableProps<T>) {
-  // const [page, setPage] = React.useState(0);
-  const [dataRows, setDataRows] = React.useState<T[]>([]);
-  // const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
+}: StickyHeadTableProps) {
+  const [dataRows, setDataRows] = React.useState<Array<any>>([]);
   React.useEffect(() => {
     setDataRows(dataUsers);
   }, [dataUsers]);
-
-  console.log("==================data=row=================");
-  console.log(dataRows);
-  console.log("====================================");
 
   return (
     <Paper
@@ -84,6 +78,11 @@ export default function StickyHeadTable<T>({
                         className={domine.className}
                       >
                         {row[column.field]}
+                        {column.field === "action" && (
+                          <StudentAndLecturerTable
+                            dataStudentOrLecturer={row}
+                          />
+                        )}
                       </TableCell>
                     );
                   })}

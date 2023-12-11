@@ -8,7 +8,10 @@ export const DataSelectMenu = createContext<{
   selectMenu: "",
   setSelectMenu: () => {},
 });
-export const useDataSelectMenu = () => useContext(DataSelectMenu);
+export const useDataSelectMenu = () => {
+  const context = useContext(DataSelectMenu);
+  return context;
+};
 
 const SidebarMenuStatusContexProvider = ({
   children,
