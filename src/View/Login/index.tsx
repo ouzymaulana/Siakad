@@ -10,13 +10,15 @@ import {
 import { grey } from "@mui/material/colors";
 import { Domine } from "next/font/google";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { useAlertForm } from "@/src/Context/Alert/FormAlertContextProvider";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 
 const domine = Domine({
   subsets: ["latin"],
@@ -46,6 +48,7 @@ const CssTextField = styled(TextField)({
 
 export default function LoginView() {
   // const [alertMessage, setAlertMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const { alertForm, setAlertForm } = useAlertForm();
   const route = useRouter();
 
@@ -124,15 +127,31 @@ export default function LoginView() {
           <Typography className={domine.className} variant="subtitle2">
             Password
           </Typography>
-          <CssTextField
-            fullWidth
-            size="small"
-            name={"password"}
-            placeholder="Your Password"
-            autoComplete="off"
-            value={formik.values.password}
-            onChange={formik.handleChange}
-          />
+          <Box position={"relative"}>
+            <CssTextField
+              fullWidth
+              type={showPassword ? "text" : "password"}
+              size="small"
+              name={"password"}
+              placeholder="Your Password"
+              autoComplete="off"
+              value={formik.values.password}
+              onChange={formik.handleChange}
+            />
+            <Box
+              position={"absolute"}
+              right={"10px"}
+              top={"11px"}
+              sx={{ cursor: "pointer" }}
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {!showPassword ? (
+                <VisibilityOffOutlinedIcon fontSize="small" />
+              ) : (
+                <VisibilityOutlinedIcon fontSize="small" />
+              )}
+            </Box>
+          </Box>
           {formik.touched.password && formik.errors.password && (
             <span style={{ color: "red", fontFamily: "Inter" }}>
               {formik.errors.password}
